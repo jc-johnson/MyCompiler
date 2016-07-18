@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "Concat.c"
 
@@ -81,14 +82,38 @@ bool isDigit(char c) {
 }
 
 /* Get an identifier */
+void getName(char c){
+	if (!isAlpha(look)) {
+		expected("Name");
+	}
+	char a;
+	toupper(look);
+	getChar();
+}
 
 /* Get a number */
+void getNum(char c){
+	if(!isDigit(look)) {
+		
+		getChar();
+	}
+}
 
 /* Output a string with tab */
+void emit(char *s){
+	printf("%c%s", '\t', s);
+}
 
 /* Output a string with tab and CRLF */
+void emitLn(char *s){
+	emit(s);
+	printf("%c\n", '\t');
+}
 
 /* Initialize */
+void init(){
+	getChar();
+}
 
 
 
@@ -142,6 +167,10 @@ int main(int argc, char *argv[]) {
 	b = isDigit('$');
 	printf("%i\n", b);
 	
+	/* emit test */
+	emit("fjl");
 	
+	/* emitLn test */
+	emitLn("fjlk;sf");
 }
 
