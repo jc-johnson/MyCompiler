@@ -1,0 +1,66 @@
+const tab = ^I 
+in Pascal is short hand for Control + I which represents the ASCII tab character
+equivalent to final char tab = '\t' in Groovy (not '/t') 
+
+how to throw errors/exceptions in C? 
+there are no exceptions in C, only in C++
+
+always check and make sure divisor is never 0
+
+perror - prints a descriptive error message to stderr. First the string str
+	is printed, followed by a colon then a space. 
+	
+in Pascal, Halt stops program execution and returns controll to the calling program. 
+The option argument Errnum specifies and exit value. If it's left out, zero is returned. 
+
+in C, The "exit" function terminates program execution and returns the status value to the system. 
+
+C does not have the support for strings like other languages. A string in C is just a pointer to an array 
+	of Chars that's terminated by the first null character. There is no string concatination operator in 
+	C. 
+	
+use strcat to concatenate two strings
+
+What's the difference between a character pointer and a constant character pointer?
+	for: char *name
+	
+		you can change the char to which name pointes, and also the char that it points to
+		
+	for: const char *name
+		You can change the pointer, but you can't change the character the pointer points to
+		
+		
+Error checking for Malloc
+http://stackoverflow.com/questions/6325940/how-detect-malloc-failure
+
+You can detect failure when:
+1. malloc(n) returns NULL
+-Most common and reliable test to detect an allocation failure. 
+-To be portable beyond POSIX/SUS, dont' trust errno.
+-If you want detail (e.g. for logging) zero errno before making the call
+to see if errno changed. Then log that. 
+
+2. malloc(n) returns a non-NULL address which is not backed by actual memory
+-Touch the memory and see if it gets killed by the OS. 
+-This is called Memory Overcommit.
+-Memory Overcommit is the optimistic approch of the OS  or hypervisor to return 
+addresses to virtual memory they're gambling they won't have to actually provide.
+-How do you portably test if your program is going to crash if you access an address 
+you got from malloc you previously trusted?
+-read() a random file into the test area and see if the OS returns EINVAL or equivalent.
+
+3. malloc(0) returns NULL and leaves errno undefined
+-Single UNIX Specification(SUS) is the collective name of a family of standards for 
+Operating Systems for them to qulify for using the UNIX trademark.
+-SUS-compliant allocator that wants to return non-NULL on a ZERO-SIZED allocation,
+but it fails so it has to return NULL. And it could try to set errno. 
+-malloc(0) isn't portable. 
+
+Don't cast the return of malloc.
+
+return() vs exit()
+return is a language instruction that passes control back to the calling function.
+exit is a system call (not a language statement) that terminates the current process. 
+
+Start gdb in GUI mode:
+gdb -tui <filename>
